@@ -23,14 +23,25 @@ import com.artamonov.fakeapi.presenter.DetailPresenter;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class DetailActivity extends AppCompatActivity implements DetailContract.DetailView {
 
     private Integer userId;
     private Integer postId;
-    private RecyclerView rvComments;
-    private RecyclerView rvPhotos;
-    private TextView tvUserName;
-    private TextView tvUserEmail;
+    @BindView(R.id.user_name)
+    TextView tvUserName;
+    @BindView(R.id.rv_photos)
+    RecyclerView rvPhotos;
+    @BindView(R.id.rv_comments)
+    RecyclerView rvComments;
+    @BindView(R.id.user_email)
+    TextView tvUserEmail;
+    //    private RecyclerView rvComments;
+    //  private RecyclerView rvPhotos;
+    //   private TextView tvUserName;
+    //   private TextView tvUserEmail;
     private ProgressDialog progressDialog;
 
     @Override
@@ -40,6 +51,7 @@ public class DetailActivity extends AppCompatActivity implements DetailContract.
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ButterKnife.bind(this);
         DetailPresenter detailPresenter = new DetailPresenter(this);
         progressDialog = new ProgressDialog(this);
 

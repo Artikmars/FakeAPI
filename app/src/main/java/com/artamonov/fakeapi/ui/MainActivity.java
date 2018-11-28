@@ -17,9 +17,14 @@ import com.artamonov.fakeapi.utils.NetworkUtils;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class MainActivity extends AppCompatActivity implements MainContract.MainView {
 
-    private RecyclerView rvPosts;
+    @BindView(R.id.rv_posts)
+    RecyclerView rvPosts;
+    // private RecyclerView rvPosts;
     private ProgressDialog progressDialog;
 
     @Override
@@ -27,8 +32,9 @@ public class MainActivity extends AppCompatActivity implements MainContract.Main
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         MainPresenter mainPresenter = new MainPresenter(this);
+        ButterKnife.bind(this);
         progressDialog = new ProgressDialog(this);
-        rvPosts = findViewById(R.id.rv_posts);
+        // rvPosts = findViewById(R.id.rv_posts);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         rvPosts.setLayoutManager(layoutManager);
         RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
