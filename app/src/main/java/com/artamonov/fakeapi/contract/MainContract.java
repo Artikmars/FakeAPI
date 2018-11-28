@@ -1,15 +1,11 @@
 package com.artamonov.fakeapi.contract;
 
-import android.app.Activity;
-
 import com.artamonov.fakeapi.model.main.Post;
 
 import java.util.List;
 
 public interface MainContract {
     interface MainPresenter {
-
-        void hideKeyboard(Activity activity);
 
         void getPosts();
 

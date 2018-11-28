@@ -29,6 +29,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginLeft="8dp"
                 android:layout_marginTop="8dp"
+                android:autoLink="email"
                 android:maxLines="2"
                 android:text="@string/comment_email"
                 android:textAppearance="@style/TextAppearance.AppCompat"

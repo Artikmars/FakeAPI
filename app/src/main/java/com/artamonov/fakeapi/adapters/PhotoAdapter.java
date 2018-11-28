@@ -32,6 +32,11 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull final PhotoAdapter.ViewHolder viewHolder, final int position) {
 
+        /*
+        Obtains Picasso instance to make a request, gets the image and populates the corresponding
+        view by that image.
+         */
+
         Picasso.get()
                 .load(photoList.get(position).getThumbnailUrl())
                 .placeholder(R.drawable.placeholder)
@@ -39,6 +44,13 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.ViewHolder> 
                 .into(viewHolder.imageView);
     }
 
+
+    /**
+     * The method returns the fixed amount of photos due to the great amount of the photos
+     * in the list.
+     *
+     * @return 10 as the fixed amount of photos
+     */
     @Override
     public int getItemCount() {
         return 10;

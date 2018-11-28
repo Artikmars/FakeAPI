@@ -1,7 +1,5 @@
 package com.artamonov.fakeapi.presenter;
 
-import android.app.Activity;
-
 import com.artamonov.fakeapi.contract.MainContract;
 import com.artamonov.fakeapi.model.main.Post;
 import com.artamonov.fakeapi.network.RetrofitRunner;
@@ -17,15 +15,17 @@ public class MainPresenter implements MainContract.MainPresenter {
         this.view = view;
     }
 
+
     @Override
     public void getPosts() {
-        // view.showProgressDialog();
+        view.showProgressDialog();
         RetrofitRunner.getPosts(this);
+
     }
 
     @Override
     public void setPostsList(List<Post> postsList) {
-        // view.dismissProgressDialog();
+        view.dismissProgressDialog();
         view.setPostsAdapter(postsList);
 
     }
@@ -37,13 +37,6 @@ public class MainPresenter implements MainContract.MainPresenter {
 
     }
 
-    @Override
-    public void hideKeyboard(Activity activity) {
 
-    }
-
-   /* public void hideKeyboard(Activity activity) {
-        KeyboardUtils.hideKeyboard(activity);
-    }*/
 }
 

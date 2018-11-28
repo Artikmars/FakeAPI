@@ -1,6 +1,5 @@
 package com.artamonov.fakeapi.contract;
 
-
 import com.artamonov.fakeapi.model.detail.Comment;
 import com.artamonov.fakeapi.model.detail.Photo;
 import com.artamonov.fakeapi.model.detail.User;

@@ -1,5 +1,6 @@
 package com.artamonov.fakeapi.ui;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -8,7 +9,6 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.widget.TextView;
 
 import com.artamonov.fakeapi.R;
@@ -31,6 +31,7 @@ public class DetailActivity extends AppCompatActivity implements DetailContract.
     private RecyclerView rvPhotos;
     private TextView tvUserName;
     private TextView tvUserEmail;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,11 +40,15 @@ public class DetailActivity extends AppCompatActivity implements DetailContract.
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         DetailPresenter detailPresenter = new DetailPresenter(this);
+        progressDialog = new ProgressDialog(this);
+
+        /*
+        Gets the Intent from Main Activity to keep track of user ID and post ID data due to their
+        connection to photo and comments endpoints.
+         */
 
         Intent intent = getIntent();
-        //check if string
         userId = intent.getIntExtra("userId", 0);
         postId = intent.getIntExtra("postId", 0);
 
@@ -66,26 +71,37 @@ public class DetailActivity extends AppCompatActivity implements DetailContract.
         detailPresenter.getComments();
         detailPresenter.getUsers();
 
+        dismissProgressDialog();
 
     }
 
+
     @Override
     public void showProgressDialog() {
-
+        progressDialog.setMessage("Loading...");
+        progressDialog.setMax(100);
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressDialog.show();
     }
 
     @Override
     public void dismissProgressDialog() {
+        progressDialog.dismiss();
 
     }
 
+    /**
+     * The method receives the raw comments list, creates a new List which is filled only by the
+     * comments which match the corresponding post ID
+     *
+     * @param response The comment list for all users which is needed to be cut
+     */
     @Override
     public void setCommentsAdapter(List<Comment> response) {
         List<Comment> result = new ArrayList<>();
         for (int i = 0; i < response.size(); i++) {
 
             if (response.get(i).getPostId().equals(postId)) {
-                Log.i("myLogs", "postId: " + postId);
                 result.add(response.get(i));
             }
         }
@@ -97,7 +113,6 @@ public class DetailActivity extends AppCompatActivity implements DetailContract.
 
     @Override
     public void setPhotoAdapter(List<Photo> photoList) {
-
         PhotoAdapter photoAdapter = new PhotoAdapter(photoList);
         rvPhotos.setAdapter(photoAdapter);
         rvPhotos.setHasFixedSize(true);

@@ -4,6 +4,7 @@ package com.artamonov.fakeapi.adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 import com.artamonov.fakeapi.R;
 import com.artamonov.fakeapi.model.main.Post;
 import com.artamonov.fakeapi.ui.DetailActivity;
+import com.artamonov.fakeapi.utils.NetworkUtils;
 
 import java.util.List;
 
@@ -44,12 +46,21 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
         viewHolder.linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Integer postId = postList.get(position).getId();
-                Integer userId = postList.get(position).getUserId();
-                Intent intent = new Intent(context, DetailActivity.class);
-                intent.putExtra("postId", postId);
-                intent.putExtra("userId", userId);
-                context.startActivity(intent);
+
+                /*
+                If the Internet connection is missed the corresponding message pops up.
+                */
+                if (NetworkUtils.isNetworkAvailable(context)) {
+                    Integer postId = postList.get(position).getId();
+                    Integer userId = postList.get(position).getUserId();
+                    Intent intent = new Intent(context, DetailActivity.class);
+                    intent.putExtra("postId", postId);
+                    intent.putExtra("userId", userId);
+                    context.startActivity(intent);
+                } else {
+                    Snackbar.make(view, "Check your Internet connection or try later", Snackbar.LENGTH_LONG)
+                            .show();
+                }
             }
         });
 

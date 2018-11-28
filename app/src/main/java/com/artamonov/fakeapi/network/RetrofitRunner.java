@@ -16,6 +16,10 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
+/**
+ * Retrofit Runner which builds the asynchronous connection to API for each corresponding endpoint.
+ */
+
 public class RetrofitRunner {
 
     public static void getPosts(final MainPresenter mainPresenter) {

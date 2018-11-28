@@ -1,7 +1,5 @@
 package com.artamonov.fakeapi.presenter;
 
-import android.app.Activity;
-
 import com.artamonov.fakeapi.contract.DetailContract;
 import com.artamonov.fakeapi.model.detail.Comment;
 import com.artamonov.fakeapi.model.detail.Photo;
@@ -19,12 +17,6 @@ public class DetailPresenter implements DetailContract.DetailPresenter {
         this.view = view;
     }
 
-
-    @Override
-    public void hideKeyboard(Activity activity) {
-
-    }
-
     @Override
     public void getComments() {
         // view.showProgressDialog();
@@ -39,7 +31,7 @@ public class DetailPresenter implements DetailContract.DetailPresenter {
 
     @Override
     public void getPhotos() {
-        // view.showProgressDialog();
+        view.showProgressDialog();
         RetrofitRunner.getPhotos(this);
     }
 
